@@ -1,8 +1,23 @@
 ---
-import Base from "../layout/Base.astro"
+import Base from "../layout/Base.astro";
 ---
 
 <Base titre="Accueil">
-	<h1>Accueil</h1>
+	<div
+		class="bg-cover bg-center h-96 flex justify-center items-center"
+		style="background-image: url('https://www.humintech.com/fileadmin/blog_images/blog_bilder/HT_Mountains.jpg');"
+	>
+		<h1 class="text-white text-center pt-20 text-8xl font-mono">Accueil</h1>
+	</div>
+	<div>
+		<h2 class="text-center text-4xl font-mono p-10">
+		Bienvenue sur mon site de test
+		</h2>
+		<div class="bg-orange-400">
+		<p class="text-center text-lg font-mono p-10 text-red-50">
+			Ce site est un site de test pour montrer comment Astro fonctionne et
+			comment la navigation fonctionne.
+		</p>
+		</div>
+	</div>
 </Base>
-
