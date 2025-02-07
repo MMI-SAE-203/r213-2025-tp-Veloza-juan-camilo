@@ -7,7 +7,7 @@ export async function getOffres (){
         });
         data = data.map((maison) => {
             maison.imageUrl = pb.files.getURL(maison, maison.image_maison);
-            console.log("ASIJAIS", maison)
+            // console.log("ASIJAIS", maison)
             return maison;
         });
         return data;
@@ -17,7 +17,7 @@ export async function AllMaisons (){
     let records = await pb.collection("Maison").getFullList();
     records = records.map((maison) => {
             maison.imageUrl = pb.files.getURL(maison, maison.image_maison);
-            console.log("ASIJAIS", maison)
+            // console.log("ASIJAIS", maison)
             return maison;
         });
     return records;
@@ -38,11 +38,7 @@ export async function allMaisonsSorted(){
     return maisonSorted;
 }
 
-export async function bySurface(s){
-    const maisonSurface = await pb.collection('Maison').getFullList({filter : `surface > ${s}`,
-    });
-    return maisonSurface;
-}
+
 
 export async function surfaceORprice(surface, p){
     const surfacePrice = await pb.collection('Maison').getFullList({filter : `prix < ${p} || surface > ${surface}`,
@@ -62,8 +58,23 @@ export async function getOffre(id) {
 }
 
 export async function bySurface(s){
-    const maisonSurface = await pb.collection('Maison').getFullList({filter : `surface > ${s}`,
+    let maisonSurface = await pb.collection('Maison').getFullList({filter : `surface > ${s}`
     });
+    maisonSurface = maisonSurface.map((maison) => {
+            maison.imageUrl = pb.files.getURL(maison, maison.image_maison);
+            // console.log("ASIJAIS", maison)
+            return maison;
+        }); 
     return maisonSurface;
 }
 
+
+export async function byPrix(s){
+    const maisonPrix = await pb.collection('Maison').getFullList({filter : `prix' > ${s}`,
+    });
+    maisonSurface = maisonSurface.map((maison) => {
+            maison.imageUrl = pb.files.getURL(maison, maison.image_maison);
+            return maison;
+        }); 
+    return maisonPrix;
+}

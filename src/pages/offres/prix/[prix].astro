@@ -1,0 +1,24 @@
+---
+import { byPrix } from "../../../backend.mjs";
+import Base from "../../../layout/Base.astro";
+import Card from "../../../components/Card.astro";
+
+const { prix } = Astro.params;
+const offresPrix = await byPrix(prix);
+if (!Prix) {
+return Astro.redirect("/offres");
+}
+---
+
+<Base>
+    <h1>Prix superieur à {prix}</h1>
+    {
+        offresPrix.map((offre) => (
+        <div>
+            <ul>
+            <Card {...offre} />
+            </ul>
+        </div>
+        ))
+    }
+</Base>
