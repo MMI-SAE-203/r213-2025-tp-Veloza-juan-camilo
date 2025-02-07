@@ -50,3 +50,14 @@ export async function surfaceORprice(surface, p){
     return surfacePrice;
 }
 
+export async function getOffre(id) {
+    try {
+        let data = await pb.collection('maison').getOne(id);
+        data.imageUrl = pb.files.getURL(data, data.image);
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la maison', error);
+        return null;
+    }
+}
+
