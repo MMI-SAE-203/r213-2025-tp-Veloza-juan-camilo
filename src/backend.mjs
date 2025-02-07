@@ -53,11 +53,17 @@ export async function surfaceORprice(surface, p){
 export async function getOffre(id) {
     try {
         let data = await pb.collection('maison').getOne(id);
-        data.imageUrl = pb.files.getURL(data, data.image);
+        data.imageUrl = pb.files.getURL(data, data.image_maison);
         return data;
     } catch (error) {
         console.log('Une erreur est survenue en lisant la maison', error);
         return null;
     }
+}
+
+export async function bySurface(s){
+    const maisonSurface = await pb.collection('Maison').getFullList({filter : `surface > ${s}`,
+    });
+    return maisonSurface;
 }
 

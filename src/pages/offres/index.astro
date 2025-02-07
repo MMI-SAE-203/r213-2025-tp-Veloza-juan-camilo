@@ -7,27 +7,27 @@ const offres = await AllMaisons();
 ---
 
 <Base titre="Offres">
-    <div x-data="{ showFavorites: false }">
-        <button
-        @click="showFavorites = !showFavorites"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded p-4 m-4"
-        >
-        <span x-show="!showFavorites">Afficher les favoris</span>
-        <span x-show="showFavorites">Afficher tout</span>
-        </button>
+  <div x-data="{ showFavorites: false }">
+    <button
+      @click="showFavorites = !showFavorites"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded p-4 m-4"
+    >
+      <span x-show="!showFavorites">Afficher les favoris</span>
+      <span x-show="showFavorites">Afficher tout</span>
+    </button>
 
-        <div x-show="!showFavorites" class="grid grid-cols-3 gap-4">
-        {offres.map((offre) => <Card {...offre} />)}
-        </div>
-        <div
-        x-show="showFavorites"
-        class="grid grid-cols-3 gap-4"
-        x-transition:enter="transition ease-out duration-300 transform"
-        x-transition:enter-start="opacity-0 scale-90"
-        x-transition:enter-end="opacity 100 scale-100"
-        >
-        {offres.map((offre) => offre.favori && <Card {...offre} />)}
-        </div>
+    <div x-show="!showFavorites" class="grid grid-cols-3 gap-4">
+      {offres.map((offre) => <Card {...offre} />)}
     </div>
-    <Card />
+    <div
+      x-show="showFavorites"
+      class="grid grid-cols-3 gap-4"
+      x-transition:enter="transition ease-out duration-300 transform"
+      x-transition:enter-start="opacity-0 scale-90"
+      x-transition:enter-end="opacity 100 scale-100"
+    >
+      {offres.map((offre) => offre.favori && <Card {...offre} />)}
+    </div>
+  </div>
+  <Card />
 </Base>

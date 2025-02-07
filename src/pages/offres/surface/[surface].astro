@@ -1,0 +1,25 @@
+---
+import { bySurface } from '../../../backend.mjs';
+import Base from '../../../layout/Base.astro';
+
+const {surface} = Astro.params;
+const offres = await bySurface(surface);
+---
+<Base>
+    <h1>Offres pour {surface} m2</h1>
+    <div class="lg:grid lg:grid-cols-3 lg:gap-4">
+        {
+        offres.map((offre) => (
+        <div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200 m-5">
+            <ul class="p-4 bg-gray-100">
+            <li><h1 class="text-xl pb-4">{offre.Nom_maison}</h1></li>
+            <li>{offre.Adresse}</li>
+            <li>{offre.numero_sale_de_bain}</li>
+            <li>{offre.numero_de_chambres}</li>
+            <li>{offre.surface}</li>
+            </ul>
+        </div>
+        ))
+        }
+        
+</Base>

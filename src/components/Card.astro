@@ -5,15 +5,15 @@ console.log("orrfe .", offre);
 ---
 
 <div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200 m-5">
-   <ul class="p-4 bg-gray-100">
-      <li>{offre.Adresse}</li>
-      <li>{offre.Favori}</li>
-      <li>{offre.Numero_de_chambres} chambres</li>
-      <li>{offre.nbSdb} salles des bain</li>
-      <li>{offre.Nom_maison}</li>
-      <li>{offre.prix} $</li>
-      <li>{offre.surface} m2</li>
-      <img src={offre.imageUrl} alt="" />
-      <a href={`/offres/${offre.id}`}>Voir plus</a>
-   </ul>
+  <ul class="p-4 bg-gray-100">
+    <li><h1 class="text-xl pb-4">{offre.Nom_maison}</h1></li>
+    <li>{offre.Adresse}</li>
+    <li>{offre.Favori}</li>
+    <li>{offre.Numero_de_chambres} chambres</li>
+    <li>{offre.nbSdb} salles des bain</li>
+    <li>{offre.prix} $</li>
+    <li>{offre.surface} m2</li>
+    <img src={offre.imageUrl} alt="" />
+    <a href={`/offres/${offre.id}`}>Voir plus</a>
+  </ul>
 </div>
