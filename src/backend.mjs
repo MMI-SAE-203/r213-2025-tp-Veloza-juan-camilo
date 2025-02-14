@@ -1,23 +1,26 @@
 import PocketBase from 'pocketbase';
 const pb = new PocketBase('http://127.0.0.1:8090');
+
+
+
+
 export async function getOffres (){
     
-        let data = await pb.collection('Maison').getFullList({
+        let data = await pb.collection('Maison').getFullList(/* {
             sort: '-created',
-        });
+        } */);
         data = data.map((maison) => {
             maison.imageUrl = pb.files.getURL(maison, maison.image_maison);
-            // console.log("ASIJAIS", maison)
             return maison;
         });
         return data;
     }
 
+
 export async function AllMaisons (){
     let records = await pb.collection("Maison").getFullList();
     records = records.map((maison) => {
             maison.imageUrl = pb.files.getURL(maison, maison.image_maison);
-            // console.log("ASIJAIS", maison)
             return maison;
         });
     return records;
@@ -64,7 +67,6 @@ export async function bySurface(s){
     });
     maisonSurface = maisonSurface.map((maison) => {
             maison.imageUrl = pb.files.getURL(maison, maison.image_maison);
-            // console.log("ASIJAIS", maison)
             return maison;
         }); 
     return maisonSurface;
@@ -96,5 +98,25 @@ export async function addOffre(house) {
             success: false,
             message: 'Une erreur est survenue en ajoutant la maison'
         };
+    }
+}
+
+export async function filterByPrix(prixMin, prixMax) {
+    console.log('prixMin', prixMin);
+    console.log('prixMax', prixMax);
+    try {
+        let data = await pb.collection('Maison').getFullList({
+            // sort: '-created',
+            filter: `prix >= ${prixMin} && prix <= ${prixMax}`
+        });
+        data = data.map((maison) => {
+            maison.image_maison = pb.files.getURL(maison, maison.image_maison);
+            return maison;
+        });
+        console.log('data', data);
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en filtrant la liste des maisons', error);
+        return [];
     }
 }

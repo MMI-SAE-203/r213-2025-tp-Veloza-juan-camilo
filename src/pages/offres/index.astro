@@ -1,12 +1,53 @@
 ---
 import Base from "../../layout/Base.astro";
 import Card from "../../components/Card.astro";
+import { filterByPrix, getOffres } from "../../backend.mjs";
 import { AllMaisons } from "../../backend.mjs";
 
-const offres = await AllMaisons();
+
+let message = "";
+let offresPrix = [];
+if (Astro.request.method === "POST") {
+  console.log("POST");
+  
+  const data = await Astro.request.formData();
+  const minPrix = parseInt(data.get("minPrix") as string);
+  const maxPrix = parseInt(data.get("maxPrix") as string);
+
+  if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+    offresPrix = await filterByPrix(minPrix, maxPrix);
+    if (offresPrix.length === 0) {
+      message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+    } else {
+      message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+    }
+  } else {
+    message = "Veuillez entrer des valeurs valides pour le prix.";
+    offresPrix = await getOffres();
+  }
+} else {
+    offresPrix = await getOffres();
+}
 ---
 
 <Base titre="Offres">
+  <div class="flex justify-center p-4 bg-slate-200">
+    <form action="/offres" method="POST">
+      <input type="number" name="minPrix" placeholder="Prix minimum" />
+      <input type="number" name="maxPrix" placeholder="Prix maximum" />
+      <input
+        class="px-4 bg-indigo-400 text-white"
+        type="submit"
+        value="Filtrer par prix"
+      />
+    </form>
+  </div>
+  <div class=" flex text-6xl py-8 justify-center ">
+  <h1>OFFRES</h1>
+  </div>
+  <div class="p-4 text-xl">
+    <a class= "lg:flex lg:justify-center bg-slate-200" href={`/offres/add`}>Ajouter une maison</a>
+  </div>
   <div x-data="{ showFavorites: false }">
     <button
       @click="showFavorites = !showFavorites"
@@ -17,7 +58,7 @@ const offres = await AllMaisons();
     </button>
 
     <div x-show="!showFavorites" class="grid grid-cols-3 gap-4">
-      {offres.map((offre) => <Card {...offre} />)}
+      {offresPrix.map((offre) => <Card {...offre} />)}
     </div>
     <div
       x-show="showFavorites"
@@ -26,7 +67,7 @@ const offres = await AllMaisons();
       x-transition:enter-start="opacity-0 scale-90"
       x-transition:enter-end="opacity 100 scale-100"
     >
-      {offres.map((offre) => offre.favori && <Card {...offre} />)}
+      {offresPrix.map((offre) => offre.favori && <Card {...offre} />)}
     </div>
     <div class="lg:flex lg:justify-center lg:gap-10 p-4">
       <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
@@ -37,9 +78,6 @@ const offres = await AllMaisons();
       </div>
       <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
         <a href={`/offres/prix/${5000}`}>Trier par prix</a>
-      </div>
-      <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
-        <a href={`/offres/add`}>Ajouter une maison</a>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@ let message = "";
 if (Astro.request.method === "POST") {
   const formData = await Astro.request.formData();
   const response = await addOffre(formData);
-  message = response.message;
+  // message = response.message;
 }
 ---
 
