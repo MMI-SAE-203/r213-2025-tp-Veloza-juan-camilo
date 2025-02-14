@@ -57,6 +57,8 @@ export async function getOffre(id) {
     }
 }
 
+// Trier par surface et prix
+
 export async function bySurface(s){
     let maisonSurface = await pb.collection('Maison').getFullList({filter : `surface > ${s}`
     });
@@ -77,4 +79,22 @@ export async function byPrix(s){
             return maison;
         }); 
     return maisonPrix;
+}
+
+//Formulaire
+
+export async function addOffre(house) {
+    try {
+        await pb.collection('Maison').create(house);
+        return {
+            success: true,
+            message: 'Offre ajoutée avec succès'
+        };
+    } catch (error) {
+        console.log('Une erreur est survenue en ajoutant la maison', error);
+        return {
+            success: false,
+            message: 'Une erreur est survenue en ajoutant la maison'
+        };
+    }
 }

@@ -28,16 +28,20 @@ const offres = await AllMaisons();
     >
       {offres.map((offre) => offre.favori && <Card {...offre} />)}
     </div>
-<div class="lg:flex lg:justify-center lg:gap-10 p-4">
-        <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
+    <div class="lg:flex lg:justify-center lg:gap-10 p-4">
+      <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
         <a href="/offres">Offres maisons</a>
-        </div>
-        <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
+      </div>
+      <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
         <a href={`/offres/surface/${80}`}>Trier par surface</a>
-        </div>
-        <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
+      </div>
+      <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
         <a href={`/offres/prix/${5000}`}>Trier par prix</a>
+      </div>
+      <div class="lg:flex lg:justify-center lg:gap-10 bg-slate-200 p-4 text-xl">
+        <a href={`/offres/add`}>Ajouter une maison</a>
+      </div>
     </div>
   </div>
+  <Card />
 </Base>
-<Card />
