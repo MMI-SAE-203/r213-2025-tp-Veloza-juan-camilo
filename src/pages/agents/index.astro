@@ -1,0 +1,29 @@
+---
+import Base from "../../layout/Base.astro";
+import CardA from "../../components/CardAgent.astro";
+import { getAgent } from "../../backend.mjs";
+
+const agents = await getAgent();
+console.log(agents);
+---
+
+<Base titre="Offres">
+  <div class="flex justify-center p-4 bg-slate-200">
+    <form action="/offres" method="POST">
+      <input type="number" name="minPrix" placeholder="Prix minimum" />
+      <input type="number" name="maxPrix" placeholder="Prix maximum" />
+      <input
+        class="px-4 bg-indigo-400 text-white"
+        type="submit"
+        value="Filtrer par prix"
+      />
+    </form>
+  </div>
+  <div class="flex text-6xl py-8 justify-center">
+    <h1>Agents</h1>
+  </div>
+  <div class="lg:grid lg:grid-cols-3 lg:gap-3">
+    <!-- {agents?.map((agent) => <a href={`/agents/${agent.id}`}>{agent.agent_nom}</a>)} -->
+    {agents?.map((agent) => <CardA {...agent} />)}
+  </div>
+</Base>

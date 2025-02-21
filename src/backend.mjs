@@ -120,3 +120,36 @@ export async function filterByPrix(prixMin, prixMax) {
         return [];
     }
 }
+
+//Get agents
+
+export async function getAgent() {
+    try {
+        let Agent = await pb.collection('Agent').getFullList();
+        Agent = Agent.map((ImgA) => {
+            ImgA.imageUrl = pb.files.getURL(ImgA, ImgA.img);
+            return ImgA;
+        });
+        return Agent;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant LES AGENTS', error);
+        return null;
+    }
+    }
+
+    export async function getAgentById(id) {
+        try {
+            let AgentId = await pb.collection('Agent').getOne(id);
+            AgentId.imageUrl = pb.files.getURL(AgentId, AgentId.img);
+            return AgentId;
+        } catch (error) {
+            console.log('Une erreur est survenue en lisant LES AGENTS', error);
+            return null;
+        }
+        }
+
+//Favori
+
+export async function setFavori(house) {
+    await pb.collection('Maison').update(house.id, {favori: !house.favori});
+}

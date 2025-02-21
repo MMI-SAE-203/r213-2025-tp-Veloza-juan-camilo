@@ -1,0 +1,21 @@
+---
+const { ...agents } = Astro.props;
+console.log(agents);
+---
+
+<div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200 m-5 flex flex-col">
+  <ul class="p-4 bg-gray-100 grid grid-col-2">
+    <li><h1 class="text-xl pb-4">Agent #1</h1></li>
+    <li>{agents.agent_nom}</li>
+    <li>{agents.agent_prenom}</li>
+    <li>{agents.mail_agent}</li>
+    <img src={agents.imageUrl} alt="" />
+
+    <div class="flex justify-center p-4 bg-black text-white">
+      <a href={`/agents/${agents.id}`}>Voir plus</a>
+
+    </div>
+  </ul>
+</div>
+
+

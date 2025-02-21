@@ -2,7 +2,7 @@
 import Base from "../../layout/Base.astro";
 import Card from "../../components/Card.astro";
 import { filterByPrix, getOffres } from "../../backend.mjs";
-import { AllMaisons } from "../../backend.mjs";
+
 
 
 let message = "";
@@ -45,8 +45,9 @@ if (Astro.request.method === "POST") {
   <div class=" flex text-6xl py-8 justify-center ">
   <h1>OFFRES</h1>
   </div>
+
   <div class="p-4 text-xl">
-    <a class= "lg:flex lg:justify-center bg-slate-200" href={`/offres/add`}>Ajouter une maison</a>
+    <a class= "flex justify-center p-4 lg:flex lg:justify-center bg-slate-200" href={`/offres/add`}>Ajouter une maison</a>
   </div>
   <div x-data="{ showFavorites: false }">
     <button
@@ -57,7 +58,7 @@ if (Astro.request.method === "POST") {
       <span x-show="showFavorites">Afficher tout</span>
     </button>
 
-    <div x-show="!showFavorites" class="grid grid-cols-3 gap-4">
+    <div x-show="!showFavorites" class="lg:grid lg:grid-cols-3 lg:gap-4">
       {offresPrix.map((offre) => <Card {...offre} />)}
     </div>
     <div
@@ -81,5 +82,4 @@ if (Astro.request.method === "POST") {
       </div>
     </div>
   </div>
-  <Card />
 </Base>
